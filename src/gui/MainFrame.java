@@ -21,6 +21,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JScrollPane jsp;
     private JPanel bottomStatus;
     private JTextArea area;
+    private JButton button;
 
 
     private MainFrame() {
@@ -46,7 +47,9 @@ public class MainFrame extends JFrame implements Subscriber {
         this.add(new JScrollPane(jTable));
 
         area=new JTextArea();
-        this.add(area,BorderLayout.AFTER_LAST_LINE);
+        button=new JButton("Enter");
+        this.add(area,BorderLayout.BEFORE_FIRST_LINE);
+        this.add(button,BorderLayout.AFTER_LAST_LINE);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
