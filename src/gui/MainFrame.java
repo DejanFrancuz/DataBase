@@ -6,10 +6,13 @@ import observer.Notification;
 import observer.Subscriber;
 import observer.enums.NotificationCode;
 import resource.implementation.InformationResource;
+import javax.swing.JButton;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @Data
 public class MainFrame extends JFrame implements Subscriber {
@@ -21,7 +24,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JScrollPane jsp;
     private JPanel bottomStatus;
     private JTextArea area;
-    private JButton button;
+    private JButton button=new JButton("Enter");
 
 
     private MainFrame() {
@@ -47,15 +50,25 @@ public class MainFrame extends JFrame implements Subscriber {
         this.add(new JScrollPane(jTable));
 
         area=new JTextArea();
-        button=new JButton("Enter");
+     //   button=new JButton("Enter");
         this.add(area,BorderLayout.BEFORE_FIRST_LINE);
         this.add(button,BorderLayout.AFTER_LAST_LINE);
+
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
 
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s=area.getText();
+            }
+        });
     }
+
+
 
     public void setAppCore(AppCore appCore) {
         this.appCore = appCore;
