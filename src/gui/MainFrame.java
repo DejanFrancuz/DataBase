@@ -20,6 +20,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JTable jTable;
     private JScrollPane jsp;
     private JPanel bottomStatus;
+    private JTextArea area;
 
 
     private MainFrame() {
@@ -44,7 +45,8 @@ public class MainFrame extends JFrame implements Subscriber {
         jTable.setFillsViewportHeight(true);
         this.add(new JScrollPane(jTable));
 
-
+        area=new JTextArea();
+        this.add(area,BorderLayout.AFTER_LAST_LINE);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
