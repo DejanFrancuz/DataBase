@@ -1,5 +1,7 @@
 package app;
 
+import compailer.Compailer;
+import compailer.CompailerImpl;
 import database.Database;
 import database.DatabaseImpl;
 import database.MSSQLrepository;
@@ -16,11 +18,13 @@ public class AppCore extends PublisherImpl {
     private Database database;
     private Settings settings;
     private TableModel tableModel;
+    private Compailer compailer;
 
     public AppCore() {
         this.settings = initSettings();
         this.database = new DatabaseImpl(new MSSQLrepository(this.settings));
         tableModel = new TableModel();
+        compailer = new CompailerImpl();
     }
 
     private Settings initSettings() {
@@ -55,5 +59,27 @@ public class AppCore extends PublisherImpl {
         this.tableModel = tableModel;
     }
 
+    public Database getDatabase() {
+        return database;
+    }
 
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    public Compailer getCompailer() {
+        return compailer;
+    }
+
+    public void setCompailer(Compailer compailer) {
+        this.compailer = compailer;
+    }
 }
