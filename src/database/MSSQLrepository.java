@@ -11,8 +11,7 @@ import resource.implementation.Entity;
 import resource.implementation.InformationResource;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class MSSQLrepository implements Repository{
@@ -109,7 +108,7 @@ public class MSSQLrepository implements Repository{
         try{
             this.initConnection();
 
-            String query = "SELECT * FROM " + from;
+            String query = from;
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -135,4 +134,70 @@ public class MSSQLrepository implements Repository{
 
         return rows;
     }
+    @Override
+    public List<Row> orderBy(String from,String order){
+        List<Row> rows = new ArrayList<>();
+
+        try{
+            this.initConnection();
+////var query = new Query("Departments").OrderBy("manager_id")
+            String query = "SELECT * FROM " + from +" ORDER BY "+order;
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()) {
+                Row row = new Row();
+                row.setName(from);
+
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+
+                for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+                    row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+                }
+                rows.add(row);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            this.closeConnection();
+        }
+
+        return rows;
+    }
+    @Override
+    public List<Row> select(String from,String select){
+        List<Row> rows = new ArrayList<>();
+
+//var query = new Query("Departments").OrderBy("manager_id")
+        try{
+            this.initConnection();
+
+            String query = "SELECT "+ select + " FROM " + from;
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+
+                Row row = new Row();
+                row.setName(from);
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+                for (int i = 1; i<=resultSetMetaData.getColumnCount(); i++){
+                        row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+                }
+                rows.add(row);
+
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            this.closeConnection();
+        }
+
+        return rows;
+    }
+
+
 }

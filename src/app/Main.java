@@ -14,7 +14,7 @@ public class Main {
         mainFrame.setAppCore(appCore);
 
 
-        mainFrame.getAppCore().readDataFromTable("EMPLOYEES");
+    //    mainFrame.getAppCore().readDataFromTable("EMPLOYEES");
         mainFrame.getAppCore().loadResource();
 
 /*

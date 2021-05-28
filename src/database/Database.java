@@ -11,5 +11,8 @@ public interface Database{
 
     List<Row> readDataFromTable(String tableName);
 
+    List<Row> orderColomnsBy(String from,String order);
+    List<Row> select(String from,String select);
+
 
 }

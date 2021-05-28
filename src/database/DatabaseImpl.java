@@ -22,4 +22,13 @@ public class DatabaseImpl implements Database{
     public List<Row> readDataFromTable(String tableName) {
         return repository.get(tableName);
     }
+
+    @Override
+    public List<Row> orderColomnsBy(String from, String order) {
+        return repository.orderBy(from,order);
+    }
+    @Override
+    public List<Row> select(String from, String select) {
+        return repository.select(from,select);
+    }
 }
