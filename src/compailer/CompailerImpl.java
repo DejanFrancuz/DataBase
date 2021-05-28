@@ -47,13 +47,102 @@ public class CompailerImpl implements Compailer{
             if(array[i].contains("Query"))query(array[i]);
         }
         for(int i=0;i<array.length;i++){
+            if(array[i].contains("Where")){
+                where(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("OrWhere")){
+                orWhere(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("AndWhere")){
+                andWhere(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
             if(array[i].contains("OrderBy")||array[i].contains("OrderByDesc"))orderBy(array[i]);
         }
-        mf.getAppCore().readDataFromTable(string);
-       System.out.println(string);
+          mf.getAppCore().readDataFromTable(string);
+        System.out.println(string);
 
     }
-//var b = new Query("jobs").Select("job_title","max_salary").GroupBy("job_title").Join("jobs").On("jobs.job_id","=","employees.job_id").WhereInQ("employee_id", a)
+    public void andWhere(String s){
+        String[] array = s.split(",");
+        String[] array1=array[0].split("\"");
+        string+=" AND ";
+        //Where("department_id", ">", 50)
+        string+=array1[1]; // dep id
+        string+=" ";
+        String[] array2 = array[1].split("\"");
+        string+=array2[1]; // >
+        string+=" ";
+        if(array[2].contains("\"")){
+            String[] array3 =array[2].split("\"");
+            if(array3[1].contains("%")){
+                String sima="'";
+                sima+=array3[1];
+                sima+="'";
+                string+=sima;
+            }else
+                string+=array3[1];}else{
+            String[] array4 =array[2].split("\\)");
+            string+=array4[0]; // 50
+        }
+        //string.replaceAll("\\)"," ");
+    }
+    public void orWhere(String s){
+        String[] array = s.split(",");
+        String[] array1=array[0].split("\"");
+        string+=" OR ";
+        //Where("department_id", ">", 50)
+        string+=array1[1]; // dep id
+        string+=" ";
+        String[] array2 = array[1].split("\"");
+        string+=array2[1]; // >
+        string+=" ";
+        if(array[2].contains("\"")){
+            String[] array3 =array[2].split("\"");
+            if(array3[1].contains("%")){
+                String sima="'";
+                sima+=array3[1];
+                sima+="'";
+                string+=sima;
+            }else
+                string+=array3[1];}else{
+            String[] array4 =array[2].split("\\)");
+            string+=array4[0]; // 50
+        }
+        //string.replaceAll("\\)"," ");
+    }
+    public void where(String s){
+        String[] array = s.split(",");
+        String[] array1=array[0].split("\"");
+        string+=" WHERE ";
+         //Where("department_id", ">", 50)
+        string+=array1[1]; // dep id
+        string+=" ";
+        String[] array2 = array[1].split("\"");
+        string+=array2[1]; // >
+        string+=" ";
+        if(array[2].contains("\"")){
+        String[] array3 =array[2].split("\"");
+        if(array3[1].contains("%")){
+            String sima="'";
+            sima+=array3[1];
+            sima+="'";
+            string+=sima;
+        }else
+        string+=array3[1];}else{
+            String[] array4 =array[2].split("\\)");
+            string+=array4[0]; // 50
+        }
+        //string.replaceAll("\\)"," ");
+    }
 
     public void query(String s){
         String[] array = s.split("\"");
