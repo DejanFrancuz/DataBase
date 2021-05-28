@@ -64,7 +64,8 @@ public class MainFrame extends JFrame implements Subscriber {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s=area.getText();
-                appCore.getCompailer().compaile(s);
+                if (appCore.getValidator().validate(s))
+                    appCore.getCompailer().compaile(s);
             }
         });
     }

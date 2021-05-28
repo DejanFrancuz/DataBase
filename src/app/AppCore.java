@@ -12,6 +12,8 @@ import observer.Notification;
 import observer.enums.NotificationCode;
 import observer.implementation.PublisherImpl;
 import resource.implementation.InformationResource;
+import validator.Validator;
+import validator.ValidatorImpl;
 
 public class AppCore extends PublisherImpl {
 
@@ -19,12 +21,14 @@ public class AppCore extends PublisherImpl {
     private Settings settings;
     private TableModel tableModel;
     private Compailer compailer;
+    private Validator validator;
 
     public AppCore() {
         this.settings = initSettings();
         this.database = new DatabaseImpl(new MSSQLrepository(this.settings));
         tableModel = new TableModel();
         compailer = new CompailerImpl();
+        validator = new ValidatorImpl();
     }
 
     private Settings initSettings() {
@@ -79,5 +83,13 @@ public class AppCore extends PublisherImpl {
 
     public void setCompailer(Compailer compailer) {
         this.compailer = compailer;
+    }
+
+    public Validator getValidator() {
+        return validator;
+    }
+
+    public void setValidator(Validator validator) {
+        this.validator = validator;
     }
 }
