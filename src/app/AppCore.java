@@ -49,14 +49,6 @@ public class AppCore extends PublisherImpl {
         //Zasto ova linija moze da ostane zakomentarisana?
         //this.notifySubscribers(new Notification(NotificationCode.DATA_UPDATED, this.getTableModel()));
     }
-    public void orderColomnsBy(String from,String order){
-        tableModel.orderColomns(this.database.orderColomnsBy(from,order));
-    }
-    public void select(String from,String select){
-        tableModel.selectRows(this.database.select(from,select));
-    }
-
-
     public TableModel getTableModel() {
         return tableModel;
     }

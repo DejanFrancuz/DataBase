@@ -33,12 +33,4 @@ public class TableModel extends DefaultTableModel {
         this.rows = rows;
         updateModel();
     }
-    public void orderColomns(List<Row> rows){
-        this.rows=rows;
-        updateModel();
-    }
-    public void selectRows(List<Row> rows){
-        this.rows=rows;
-        updateModel();
-    }
 }
