@@ -13,7 +13,7 @@ public class CompailerImpl implements Compailer{
     //var query = new Query("Departments").OrderBy("manager_id")
     @Override
     public void compaile(String s){
-        String[] array=s.split("\\.");
+        String[] array=s.split("\\)\\.");
         String star="*";
         for(int i=0;i<array.length;i++){
             if(array[i].contains("Select"))star=array[i];
@@ -28,6 +28,13 @@ public class CompailerImpl implements Compailer{
         for(int i=0;i<array.length;i++){
             if(array[i].contains("Query"))query(array[i]);
         }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("Join"))join(array[i]);
+        }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("On"))on(array[i]);
+        }
+
         for(int i=0;i<array.length;i++){
             if(array[i].contains("Where(")&&array[i].charAt(0)=='W'){
                 where(array[i]);
@@ -101,6 +108,18 @@ public class CompailerImpl implements Compailer{
         string+=n;
       //  string+=array1[0];
 
+    }
+    public void join(String s){
+        String[] array=s.split("\"");
+        string+=" JOIN ";
+        string+=array[1];
+    }
+    public void on(String s){
+        String[] array=s.split("\""); // on("id","=","id")
+        string+=" ON ";
+        string+=array[1];
+        string+=array[3];
+        string+=array[5];
     }
     public void whereEndsWith(String s){
         String[] array=s.split(",");
