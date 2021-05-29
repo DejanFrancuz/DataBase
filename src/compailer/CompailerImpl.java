@@ -41,14 +41,32 @@ public class CompailerImpl implements Compailer{
             }
         }
         for(int i=0;i<array.length;i++){
-            if(array[i].contains("OrWhere")){
-                orWhere(array[i]);
+            if(array[i].contains("WhereEndsWith")){
+                whereEndsWith(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("WhereStartsWith")){
+                whereStartsWith(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("WhereContains")){
+                whereContains(array[i]);
                 break;
             }
         }
         for(int i=0;i<array.length;i++){
             if(array[i].contains("AndWhere")){
                 andWhere(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("OrWhere")){
+                orWhere(array[i]);
                 break;
             }
         }
@@ -83,6 +101,39 @@ public class CompailerImpl implements Compailer{
         string+=n;
       //  string+=array1[0];
 
+    }
+    public void whereEndsWith(String s){
+        String[] array=s.split(",");
+        String[] array1=array[0].split("\"");
+        string+=" WHERE ";
+        string+=array1[1];
+        string+=" LIKE '%";
+        array[1]=array[1].replace(")","");
+        array[1]=array[1].replace(" ","");
+        string+=array[1];
+        string+="'";
+    }
+    public void whereStartsWith(String s){
+        String[] array=s.split(",");
+        String[] array1=array[0].split("\"");
+        string+=" WHERE ";
+        string+=array1[1];
+        string+=" LIKE '";
+        array[1]=array[1].replace(")","");
+        array[1]=array[1].replace(" ","");
+        string+=array[1];
+        string+="%'";
+    }
+    public void whereContains(String s){
+        String[] array=s.split(",");
+        String[] array1=array[0].split("\"");
+        string+=" WHERE ";
+        string+=array1[1];
+        string+=" LIKE '%";
+        array[1]=array[1].replace(")","");
+        array[1]=array[1].replace(" ","");
+        string+=array[1];
+        string+="%'";
     }
     public void whereBetween(String s){
         String[] array=s.split(",");
