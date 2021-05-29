@@ -2,6 +2,7 @@ package compailer;
 
 import gui.MainFrame;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,11 +20,23 @@ public class CompailerImpl implements Compailer{
         }
         select(star);
         for(int i=0;i<array.length;i++){
+            if(array[i].contains("Avg")){
+                avg(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
             if(array[i].contains("Query"))query(array[i]);
         }
         for(int i=0;i<array.length;i++){
-            if(array[i].contains("Where")){
+            if(array[i].contains("Where(")&&array[i].charAt(0)=='W'){
                 where(array[i]);
+                break;
+            }
+        }
+        for(int i=0;i<array.length;i++){
+            if(array[i].contains("WhereBetween")){
+                whereBetween(array[i]);
                 break;
             }
         }
@@ -53,9 +66,33 @@ public class CompailerImpl implements Compailer{
             }
         }
         order=0;
-          mf.getAppCore().readDataFromTable(string);
+         mf.getAppCore().readDataFromTable(string);
         System.out.println(string);
 
+    }
+    public void avg(String s){
+        String[] array = s.split(",");
+        String[] array1 = array[1].split("\\)"); // prosecnaPlata 0
+        String[] array2 = array[0].split("\""); // salary 1
+        String[] array3 = array1[0].split("\"");
+        string+=" AVG (";
+        string+=array2[1];
+        string+=")";
+        string+=" AS ";
+        String n = "["+array3[1]+"]";
+        string+=n;
+      //  string+=array1[0];
+
+    }
+    public void whereBetween(String s){
+        String[] array=s.split(",");
+        String[] array1 = array[0].split("\"");
+        string+=" WHERE ";
+        string+=array1[1];
+        string+=" BETWEEN ";
+        string+=array[1];
+        string+=" AND ";
+        string+=array[2].replace(")","");
     }
     public void andWhere(String s){
         String[] array = s.split(",");
