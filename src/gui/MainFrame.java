@@ -45,12 +45,14 @@ public class MainFrame extends JFrame implements Subscriber {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         jTable = new JTable();
-        jTable.setPreferredScrollableViewportSize(new Dimension(500, 400));
+        jTable.setPreferredScrollableViewportSize(new Dimension(700, 400));
         jTable.setFillsViewportHeight(true);
         this.add(new JScrollPane(jTable));
 
         area=new JTextArea();
      //   button=new JButton("Enter");
+        area.setColumns(50);
+        area.setRows(5);
         this.add(area,BorderLayout.BEFORE_FIRST_LINE);
         this.add(button,BorderLayout.AFTER_LAST_LINE);
 
