@@ -66,8 +66,9 @@ public class MainFrame extends JFrame implements Subscriber {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s=area.getText();
-                if (appCore.getValidator().validate(s))
-                    appCore.getCompailer().compaile(s);
+                appCore.getValidator().validate(s);
+                //if (appCore.getValidator().validate(s))
+                 //   appCore.getCompailer().compaile(s);
             }
         });
     }
@@ -85,7 +86,7 @@ public class MainFrame extends JFrame implements Subscriber {
     public void update(Notification notification) {
 
         if (notification.getCode() == NotificationCode.RESOURCE_LOADED){
-            System.out.println((InformationResource)notification.getData());
+            System.out.println(notification.getData());
         }
 
         else{
